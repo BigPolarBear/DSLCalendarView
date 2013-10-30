@@ -38,6 +38,9 @@
 #import "DSLCalendarDayView.h"
 
 
+#define BorderWidth 0
+
+
 @interface DSLCalendarView ()
 
 @property (nonatomic, strong) DSLCalendarDayCalloutView *dayCalloutView;
@@ -49,6 +52,8 @@
 @property (nonatomic, strong) UIView *monthContainerView;
 @property (nonatomic, strong) UIView *monthContainerViewContentView;
 @property (nonatomic, strong) DSLCalendarMonthSelectorView *monthSelectorView;
+
+@property (nonatomic, strong) UIView* bottomView;
 
 @end
 
@@ -113,6 +118,26 @@
     self.monthContainerViewContentView = [[UIView alloc] initWithFrame:self.monthContainerView.bounds];
     [self.monthContainerView addSubview:self.monthContainerViewContentView];
     
+    CGFloat bottomViewHeight = 50;
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.monthContainerView.frame.origin.y, self.frame.size.width, bottomViewHeight)];
+    self.bottomView.backgroundColor = [UIColor redColor];
+    [self addSubview:self.bottomView];
+
+    CGFloat buttonWidth = 148;
+    CGFloat buttonHeight = 35;
+    UIButton* buttonCancel = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonCancel.frame = CGRectMake((self.bounds.size.width - buttonWidth*2)/4, (bottomViewHeight - buttonHeight)/2, buttonWidth, buttonHeight);
+    [buttonCancel addTarget:self action:@selector(buttonCancelClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonCancel setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
+    [self.bottomView addSubview:buttonCancel];
+    
+    UIButton* buttonConfirm = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonConfirm.frame = CGRectMake(buttonWidth + (self.bounds.size.width - buttonWidth*2)/4 * 3, (bottomViewHeight - buttonHeight)/2, buttonWidth, buttonHeight);
+    [buttonConfirm addTarget:self action:@selector(buttonConfirmClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonConfirm setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
+    [self.bottomView addSubview:buttonConfirm];
+
+    
     self.monthViews = [[NSMutableDictionary alloc] init];
 
     [self updateMonthLabelMonth:_visibleMonth];
@@ -140,6 +165,9 @@
     for (DSLCalendarMonthView *monthView in self.monthViews.allValues) {
         [monthView updateDaySelectionStatesForRange:self.selectedRange];
     }
+    
+    self.monthSelectorView.countNightsLabel.text = [NSString stringWithFormat:@"%d",selectedRange.days];
+    [self.monthSelectorView.countNightsLabel setNeedsDisplay];
 }
 
 - (void)setDraggingStartDay:(NSDateComponents *)draggingStartDay {
@@ -187,7 +215,7 @@
 
 - (void)updateMonthLabelMonth:(NSDateComponents*)month {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"MMMM yyyy";
+    formatter.dateFormat = @"yyyy'年'MM'月'"; // todo for hanxin 可定制
     
     NSDate *date = [month.calendar dateFromComponents:month];
     self.monthSelectorView.titleLabel.text = [formatter stringFromDate:date];
@@ -204,7 +232,7 @@
     NSString *monthViewKey = [self monthViewKeyForMonth:month];
     DSLCalendarMonthView *monthView = [self.monthViews objectForKey:monthViewKey];
     if (monthView == nil) {
-        monthView = [[[[self class] monthViewClass] alloc] initWithMonth:month width:self.bounds.size.width dayViewClass:[[self class] dayViewClass] dayViewHeight:_dayViewHeight];
+        monthView = [[[[self class] monthViewClass] alloc] initWithMonth:month width:self.bounds.size.width - BorderWidth*2 dayViewClass:[[self class] dayViewClass] dayViewHeight:_dayViewHeight];
         [self.monthViews setObject:monthView forKey:monthViewKey];
         [self.monthContainerViewContentView addSubview:monthView];
 
@@ -245,6 +273,9 @@
         [monthView.superview bringSubviewToFront:monthView];
 
         CGRect frame = monthView.frame;
+        frame.size.width = frame.size.width - BorderWidth*2;
+        frame.origin.x = BorderWidth;
+        
         frame.origin.y = nextVerticalPosition;
         nextVerticalPosition += frame.size.height;
         monthView.frame = frame;
@@ -331,7 +362,23 @@
         // Resize the our frame to show the height of the target month
         frame = self.frame;
         frame.size.height = CGRectGetMaxY(self.monthContainerView.frame);
+        frame.size.height += self.bottomView.frame.size.height;
+        
+        if (!self.disableKeepingPositionAtBottom) {
+            if (self.superview) {
+                frame.origin.y = self.superview.frame.size.height - frame.size.height;
+            }
+            self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        }
         self.frame = frame;
+        
+        // 调整底部确定取消按钮的位置 todo for hanxin
+        frame.size.height += self.bottomView.bounds.size.height;
+        CGRect frameBottom = self.bottomView.frame;
+        frameBottom.origin.y = self.frame.size.height - frameBottom.size.height;
+        self.bottomView.frame = frameBottom;
+        
+        
         
         // Tell the delegate method that we're about to animate to a new month
         if (monthComparisonResult != NSOrderedSame && [self.delegate respondsToSelector:@selector(calendarView:willChangeToVisibleMonth:duration:)]) {
@@ -526,4 +573,19 @@
     }
 }
 
+#pragma mark Button Event
+- (void)buttonCancelClicked:(id)sender{
+    if ([self.delegate respondsToSelector:@selector(didClickButtonCancel:)]) {
+        [self.delegate didClickButtonCancel:self];
+    }
+}
+- (void)buttonConfirmClicked:(id)sender{
+    if ([self.delegate respondsToSelector:@selector(didClickButtonConfirm:)]) {
+        [self.delegate didClickButtonConfirm:self];
+    }
+}
+
+- (void)didMoveToSuperview{
+    [self positionViewsForMonth:_visibleMonth fromMonth:_visibleMonth animated:NO];
+}
 @end

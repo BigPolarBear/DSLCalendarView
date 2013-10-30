@@ -51,6 +51,8 @@ enum {
 @property (nonatomic, assign) DSLCalendarDayViewPositionInWeek positionInWeek;
 @property (nonatomic, assign) DSLCalendarDayViewSelectionState selectionState;
 @property (nonatomic, assign, getter = isInCurrentMonth) BOOL inCurrentMonth;
+@property (nonatomic, readonly) BOOL isCurrentDay;
+@property (nonatomic, readonly) BOOL isBeforeCurrentDay;
 
 @property (nonatomic, strong, readonly) NSDate *dayAsDate;
 

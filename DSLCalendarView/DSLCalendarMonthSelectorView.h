@@ -35,6 +35,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *backButton;
 @property (nonatomic, weak) IBOutlet UIButton *forwardButton;
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *countNightsLabel;
 
 @property (nonatomic, strong) IBOutletCollection(UILabel) NSArray *dayLabels;
 

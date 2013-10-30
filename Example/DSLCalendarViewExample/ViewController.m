@@ -11,7 +11,7 @@
 
 @interface ViewController () <DSLCalendarViewDelegate>
 
-@property (nonatomic, weak) IBOutlet DSLCalendarView *calendarView;
+@property (nonatomic, weak) DSLCalendarView *calendarView;
 
 @end
 
@@ -22,6 +22,11 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    DSLCalendarView* aCalendarView = [[DSLCalendarView alloc] initWithFrame:CGRectMake(0, 0, 320, 500)];
+    aCalendarView.disableKeepingPositionAtBottom = NO;
+    [self.view addSubview:aCalendarView];
+    
+    self.calendarView = aCalendarView;
     self.calendarView.delegate = self;
 }
 

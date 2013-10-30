@@ -34,6 +34,7 @@
 
 @property (nonatomic, copy) NSDateComponents *startDay;
 @property (nonatomic, copy) NSDateComponents *endDay;
+@property (nonatomic, readonly) NSInteger days;
 
 // Designated initialiser
 - (id)initWithStartDay:(NSDateComponents*)start endDay:(NSDateComponents*)end;

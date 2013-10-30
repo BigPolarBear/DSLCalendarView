@@ -80,6 +80,12 @@
     _endDay = [endDay copy];
 }
 
+- (NSInteger)days{
+    NSDate* sdate = self.startDay.date;
+    NSDate* edate = self.endDay.date;
+    
+    return [edate timeIntervalSinceDate:sdate] / (3600*24);
+}
 
 #pragma mark
 

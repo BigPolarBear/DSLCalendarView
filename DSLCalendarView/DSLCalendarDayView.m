@@ -91,6 +91,20 @@
     [self setNeedsDisplay];
 }
 
+- (BOOL)isCurrentDay{
+    NSDate* currentDate = [NSDate date];
+    NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:self.dayAsDate];
+    if (timeInterval > 0 && timeInterval < 3600 * 24) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+- (BOOL)isBeforeCurrentDay{
+    return ([[NSDate date] timeIntervalSinceDate:self.dayAsDate] > 0);
+}
+
 
 #pragma mark UIView methods
 
@@ -107,13 +121,14 @@
 #pragma mark Drawing
 
 - (void)drawBackground {
-    if (self.selectionState == DSLCalendarDayViewNotSelected) {
-        if (self.isInCurrentMonth) {
-            [[UIColor colorWithWhite:245.0/255.0 alpha:1.0] setFill];
-        }
-        else {
-            [[UIColor colorWithWhite:225.0/255.0 alpha:1.0] setFill];
-        }
+    if (self.selectionState == DSLCalendarDayViewNotSelected) {// todo for custom 改为需要的背景颜色
+//        if (self.isInCurrentMonth) {
+//            [[UIColor colorWithWhite:245.0/255.0 alpha:1.0] setFill];
+//        }
+//        else {
+//            [[UIColor colorWithWhite:225.0/255.0 alpha:1.0] setFill];
+//        }
+        [[UIColor whiteColor] setFill];
         UIRectFill(self.bounds);
     }
     else {
@@ -145,31 +160,48 @@
     
     CGContextSetLineWidth(context, 1.0);
     
-    CGContextSaveGState(context);
-    CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:255.0/255.0 alpha:1.0].CGColor);
-    CGContextMoveToPoint(context, 0.5, self.bounds.size.height - 0.5);
-    CGContextAddLineToPoint(context, 0.5, 0.5);
-    CGContextAddLineToPoint(context, self.bounds.size.width - 0.5, 0.5);
-    CGContextStrokePath(context);
-    CGContextRestoreGState(context);
+//    CGContextSaveGState(context);
+//    CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:255.0/255.0 alpha:1.0].CGColor);
+//    CGContextMoveToPoint(context, 0.5, self.bounds.size.height - 0.5);
+//    CGContextAddLineToPoint(context, 0.5, 0.5);
+//    CGContextAddLineToPoint(context, self.bounds.size.width - 0.5, 0.5);
+//    CGContextStrokePath(context);
+//    CGContextRestoreGState(context);
+//    
+//    CGContextSaveGState(context);
+//    if (self.isInCurrentMonth) {
+//        CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:205.0/255.0 alpha:1.0].CGColor);
+//    }
+//    else {
+//        CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:185.0/255.0 alpha:1.0].CGColor);
+//    }
+//    CGContextMoveToPoint(context, self.bounds.size.width - 0.5, 0.0);
+//    CGContextAddLineToPoint(context, self.bounds.size.width - 0.5, self.bounds.size.height - 0.5);
+//    CGContextAddLineToPoint(context, 0.0, self.bounds.size.height - 0.5);
+//    CGContextStrokePath(context);
+//    CGContextRestoreGState(context);
+    
     
     CGContextSaveGState(context);
-    if (self.isInCurrentMonth) {
-        CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:205.0/255.0 alpha:1.0].CGColor);
-    }
-    else {
-        CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:185.0/255.0 alpha:1.0].CGColor);
-    }
-    CGContextMoveToPoint(context, self.bounds.size.width - 0.5, 0.0);
-    CGContextAddLineToPoint(context, self.bounds.size.width - 0.5, self.bounds.size.height - 0.5);
-    CGContextAddLineToPoint(context, 0.0, self.bounds.size.height - 0.5);
+    // todo for custom 设置分割线的颜色
+    CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:220.0/255.0 alpha:1.0].CGColor);
+    CGContextMoveToPoint(context, 0, self.bounds.size.height - 0.5);
+    CGContextAddLineToPoint(context, self.bounds.size.width, self.bounds.size.height - 0.5);
     CGContextStrokePath(context);
     CGContextRestoreGState(context);
 }
 
 - (void)drawDayNumber {
     if (self.selectionState == DSLCalendarDayViewNotSelected) {
-        [[UIColor colorWithWhite:66.0/255.0 alpha:1.0] set];
+        if(self.isCurrentDay){
+            // todo for custom 显示的是当前日期的颜色
+            [[UIColor colorWithRed:255.0/255 green:187/255.0 blue:47/255.0 alpha:1] set];
+        }else if (self.isBeforeCurrentDay) {
+            // todo for custom 显示的当前日期之前的颜色
+            [[UIColor colorWithWhite:200.0/255.0 alpha:1.0] set];
+        }else{
+            [[UIColor colorWithWhite:66.0/255.0 alpha:1.0] set];
+        }
     }
     else {
         [[UIColor whiteColor] set];
