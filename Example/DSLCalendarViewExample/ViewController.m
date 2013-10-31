@@ -27,6 +27,7 @@
     [self.view addSubview:aCalendarView];
     
     self.calendarView = aCalendarView;
+    self.calendarView.minNightsCount = 1;
     self.calendarView.delegate = self;
 }
 

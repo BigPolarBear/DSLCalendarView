@@ -42,6 +42,7 @@
 @property (nonatomic, strong) DSLCalendarRange *selectedRange;
 @property (nonatomic, assign) BOOL showDayCalloutView;
 @property (nonatomic, assign) BOOL disableKeepingPositionAtBottom;
+@property (nonatomic, assign) NSInteger minNightsCount;
 
 + (Class)monthSelectorViewClass;
 + (Class)monthViewClass;
@@ -64,5 +65,7 @@
 
 - (void)didClickButtonCancel:(DSLCalendarView *)calendarView;
 - (void)didClickButtonConfirm:(DSLCalendarView*)calendarView;
+
+
 
 @end

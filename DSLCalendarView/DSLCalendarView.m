@@ -252,7 +252,7 @@
     CGFloat restingHeight = 0;
     
     NSComparisonResult monthComparisonResult = [month.date compare:fromMonth.date];
-    NSTimeInterval animationDuration = (monthComparisonResult == NSOrderedSame || !animated) ? 0.0 : 0.5;
+    NSTimeInterval animationDuration = (monthComparisonResult == NSOrderedSame || !animated) ? 0.0 : 0.3;
     
     NSMutableArray *activeMonthViews = [[NSMutableArray alloc] init];
     
@@ -484,7 +484,14 @@
     }
     
     if (!self.draggedOffStartDay && [self.draggingStartDay isEqual:touchedView.day]) {
-        self.selectedRange = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:touchedView.day];
+        DSLCalendarRange* range = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:touchedView.day];
+        if(self.minNightsCount > 0){
+            // 改为最小的日期跨度
+            NSDate* endDate = [range.startDay.date dateByAddingTimeInterval:3600*24*self.minNightsCount];
+            NSDateComponents* endComponent = [endDate dslCalendarView_dayWithCalendar:range.startDay.calendar];
+            range = [[DSLCalendarRange alloc] initWithStartDay:range.startDay endDay:endComponent];
+        }
+        self.selectedRange = range;
     }
     
     self.draggingStartDay = nil;
@@ -511,6 +518,10 @@
         [self.delegate calendarView:self didSelectRange:self.selectedRange];
     }
 
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    NSLog(@"touchesCancelled");
 }
 
 
