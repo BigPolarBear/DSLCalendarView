@@ -22,8 +22,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    DSLCalendarView* aCalendarView = [[DSLCalendarView alloc] initWithFrame:CGRectMake(0, 0, 320, 500)];
+//    DSLCalendarView* aCalendarView = [[DSLCalendarView alloc] initWithFrame:CGRectMake(0, 0, 320, 500)];
+    DSLCalendarView* aCalendarView = [[DSLCalendarView alloc] init];
     aCalendarView.disableKeepingPositionAtBottom = NO;
+    CGRect frame = aCalendarView.frame;
+    frame.origin.y = self.view.frame.size.height - frame.size.height;
+    aCalendarView.frame = frame;
+    
     [self.view addSubview:aCalendarView];
     
     self.calendarView = aCalendarView;

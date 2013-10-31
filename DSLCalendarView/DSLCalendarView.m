@@ -90,6 +90,11 @@
     return self;
 }
 
+- (id)init{
+    // 这里的宽度必须是320，高度不要太低就行，在初始化后，会自动调整
+    return [self initWithFrame:CGRectMake(0, 0, 320, 200)];
+}
+
 - (void)commonInit {
     _dayViewHeight = 44;
     
@@ -600,9 +605,5 @@
     if ([self.delegate respondsToSelector:@selector(didClickButtonConfirm:)]) {
         [self.delegate didClickButtonConfirm:self];
     }
-}
-
-- (void)didMoveToSuperview{
-    [self positionViewsForMonth:_visibleMonth fromMonth:_visibleMonth animated:NO];
 }
 @end
