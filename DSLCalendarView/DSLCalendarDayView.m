@@ -184,7 +184,7 @@
     
     CGContextSaveGState(context);
     // todo for custom 设置分割线的颜色
-    CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:220.0/255.0 alpha:1.0].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:227.0/255.0 alpha:1.0].CGColor);
     CGContextMoveToPoint(context, 0, self.bounds.size.height - 0.5);
     CGContextAddLineToPoint(context, self.bounds.size.width, self.bounds.size.height - 0.5);
     CGContextStrokePath(context);
@@ -195,12 +195,12 @@
     if (self.selectionState == DSLCalendarDayViewNotSelected) {
         if(self.isCurrentDay){
             // todo for custom 显示的是当前日期的颜色
-            [[UIColor colorWithRed:255.0/255 green:187/255.0 blue:47/255.0 alpha:1] set];
-        }else if (self.isBeforeCurrentDay) {
+            [[UIColor colorWithRed:251.0/255 green:160/255.0 blue:37/255.0 alpha:1] set];
+        }else if (self.isBeforeCurrentDay && self.isInCurrentMonth) {
             // todo for custom 显示的当前日期之前的颜色
-            [[UIColor colorWithWhite:200.0/255.0 alpha:1.0] set];
+            [[UIColor colorWithWhite:164/255.0 alpha:1.0] set];
         }else{
-            [[UIColor colorWithWhite:66.0/255.0 alpha:1.0] set];
+            [[UIColor colorWithWhite:227.0/255.0 alpha:1.0] set];
         }
     }
     else {

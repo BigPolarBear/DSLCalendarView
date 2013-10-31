@@ -120,7 +120,7 @@
     
     CGFloat bottomViewHeight = 50;
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.monthContainerView.frame.origin.y, self.frame.size.width, bottomViewHeight)];
-    self.bottomView.backgroundColor = [UIColor redColor];
+    self.bottomView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.bottomView];
 
     CGFloat buttonWidth = 148;
@@ -129,12 +129,18 @@
     buttonCancel.frame = CGRectMake((self.bounds.size.width - buttonWidth*2)/4, (bottomViewHeight - buttonHeight)/2, buttonWidth, buttonHeight);
     [buttonCancel addTarget:self action:@selector(buttonCancelClicked:) forControlEvents:UIControlEventTouchUpInside];
     [buttonCancel setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
+    [buttonCancel setTitleColor:[UIColor colorWithRed:251/255.0 green:160/255.0 blue:37/255.0 alpha:1] forState:UIControlStateNormal];
+    [buttonCancel setBackgroundColor:[UIColor whiteColor]];
+    buttonCancel.titleLabel.font = [UIFont systemFontOfSize:19];
     [self.bottomView addSubview:buttonCancel];
     
     UIButton* buttonConfirm = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonConfirm.frame = CGRectMake(buttonWidth + (self.bounds.size.width - buttonWidth*2)/4 * 3, (bottomViewHeight - buttonHeight)/2, buttonWidth, buttonHeight);
     [buttonConfirm addTarget:self action:@selector(buttonConfirmClicked:) forControlEvents:UIControlEventTouchUpInside];
     [buttonConfirm setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
+    [buttonConfirm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [buttonConfirm setBackgroundColor:[UIColor colorWithRed:251/255.0 green:160/255.0 blue:37/255.0 alpha:1]];
+    buttonConfirm.titleLabel.font = [UIFont systemFontOfSize:19];
     [self.bottomView addSubview:buttonConfirm];
 
     
