@@ -531,9 +531,6 @@
 
 }
 
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSLog(@"touchesCancelled");
-}
 
 
 - (DSLCalendarDayView*)dayViewForTouches:(NSSet*)touches {

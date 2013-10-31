@@ -99,4 +99,12 @@
     return ([day1.date compare:day2.date] == NSOrderedAscending);
 }
 
+- (void)didClickButtonCancel:(DSLCalendarView *)calendarView{
+    NSLog(@"didClickButtonCancel");
+}
+
+- (void)didClickButtonConfirm:(DSLCalendarView *)calendarView{
+    NSLog(@"didClickButtonConfirm");
+}
+
 @end
