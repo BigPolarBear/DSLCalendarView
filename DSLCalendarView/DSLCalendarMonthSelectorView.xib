@@ -102,7 +102,7 @@
                     <color key="backgroundColor" red="0.98431372549019602" green="0.62745098039215685" blue="0.14509803921568626" alpha="1" colorSpace="deviceRGB"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="共          晚" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vab-Ly-0g4">
-                    <rect key="frame" x="85" y="9" width="150" height="21"/>
+                    <rect key="frame" x="87" y="9" width="150" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.41176470588235292" green="0.41176470588235292" blue="0.41176470588235292" alpha="1" colorSpace="calibratedRGB"/>

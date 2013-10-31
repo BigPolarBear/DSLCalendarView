@@ -130,7 +130,7 @@
     [buttonCancel addTarget:self action:@selector(buttonCancelClicked:) forControlEvents:UIControlEventTouchUpInside];
     [buttonCancel setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
     [buttonCancel setTitleColor:[UIColor colorWithRed:251/255.0 green:160/255.0 blue:37/255.0 alpha:1] forState:UIControlStateNormal];
-    [buttonCancel setBackgroundColor:[UIColor whiteColor]];
+    [buttonCancel setBackgroundImage:[[UIImage imageNamed:@"DSLCalendarButtonCancelBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 4, 4)] forState:UIControlStateNormal];
     buttonCancel.titleLabel.font = [UIFont systemFontOfSize:19];
     [self.bottomView addSubview:buttonCancel];
     
@@ -139,7 +139,7 @@
     [buttonConfirm addTarget:self action:@selector(buttonConfirmClicked:) forControlEvents:UIControlEventTouchUpInside];
     [buttonConfirm setTitle:NSLocalizedString(@"确定", nil) forState:UIControlStateNormal];
     [buttonConfirm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [buttonConfirm setBackgroundColor:[UIColor colorWithRed:251/255.0 green:160/255.0 blue:37/255.0 alpha:1]];
+    [buttonConfirm setBackgroundImage:[[UIImage imageNamed:@"DSLCalendarButtonConfirmBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 4, 4)] forState:UIControlStateNormal];
     buttonConfirm.titleLabel.font = [UIFont systemFontOfSize:19];
     [self.bottomView addSubview:buttonConfirm];
 
