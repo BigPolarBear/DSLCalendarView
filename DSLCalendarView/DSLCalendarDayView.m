@@ -102,7 +102,7 @@
 }
 
 - (BOOL)isBeforeCurrentDay{
-    return ([[NSDate date] timeIntervalSinceDate:self.dayAsDate] > 0);
+    return ([[NSDate date] timeIntervalSinceDate:self.dayAsDate] > 0) && !self.isCurrentDay;
 }
 
 
