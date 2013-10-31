@@ -193,13 +193,21 @@
 
 - (void)drawDayNumber {
     if (self.selectionState == DSLCalendarDayViewNotSelected) {
-        if(self.isCurrentDay){
-            // todo for custom 显示的是当前日期的颜色
-            [[UIColor colorWithRed:251.0/255 green:160/255.0 blue:37/255.0 alpha:1] set];
-        }else if (self.isBeforeCurrentDay && self.isInCurrentMonth) {
-            // todo for custom 显示的当前日期之前的颜色
-            [[UIColor colorWithWhite:164/255.0 alpha:1.0] set];
+        
+        if(self.isInCurrentMonth){
+            // 当月
+            if(self.isCurrentDay){
+                // 当天
+                [[UIColor colorWithRed:251.0/255 green:160/255.0 blue:37/255.0 alpha:1] set];
+            }else if(self.isBeforeCurrentDay){
+                // 当天前
+                [[UIColor colorWithWhite:164/255.0 alpha:1.0] set];
+            }else{
+                // 当天后
+                [[UIColor colorWithWhite:105.0/255.0 alpha:1.0] set];
+            }
         }else{
+            // 非当月
             [[UIColor colorWithWhite:227.0/255.0 alpha:1.0] set];
         }
     }
