@@ -495,12 +495,6 @@
     
     if (!self.draggedOffStartDay && [self.draggingStartDay isEqual:touchedView.day]) {
         DSLCalendarRange* range = [[DSLCalendarRange alloc] initWithStartDay:touchedView.day endDay:touchedView.day];
-        if(self.minNightsCount > 0){
-            // 改为最小的日期跨度
-            NSDate* endDate = [range.startDay.date dateByAddingTimeInterval:3600*24*self.minNightsCount];
-            NSDateComponents* endComponent = [endDate dslCalendarView_dayWithCalendar:range.startDay.calendar];
-            range = [[DSLCalendarRange alloc] initWithStartDay:range.startDay endDay:endComponent];
-        }
         self.selectedRange = range;
     }
     
@@ -522,6 +516,15 @@
                 [self didTapMonthForward:nil];
             }
         }
+    }
+    
+    if(self.selectedRange.days < self.minNightsCount){
+        // 改为最小的日期跨度
+        DSLCalendarRange* range = self.selectedRange;
+        NSDate* endDate = [range.startDay.date dateByAddingTimeInterval:3600*24*self.minNightsCount];
+        NSDateComponents* endComponent = [endDate dslCalendarView_dayWithCalendar:range.startDay.calendar];
+        range = [[DSLCalendarRange alloc] initWithStartDay:range.startDay endDay:endComponent];
+        self.selectedRange = range;
     }
     
     if ([self.delegate respondsToSelector:@selector(calendarView:didSelectRange:)]) {
