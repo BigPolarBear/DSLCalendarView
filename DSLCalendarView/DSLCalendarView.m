@@ -225,7 +225,7 @@
 
 - (void)updateMonthLabelMonth:(NSDateComponents*)month {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy'年'MM'月'"; // todo for hanxin 可定制
+    formatter.dateFormat = @"yyyy'年'MM'月'"; // 可定制
     
     NSDate *date = [month.calendar dateFromComponents:month];
     self.monthSelectorView.titleLabel.text = [formatter stringFromDate:date];
@@ -382,7 +382,7 @@
         }
         self.frame = frame;
         
-        // 调整底部确定取消按钮的位置 todo for hanxin
+        // 调整底部确定取消按钮的位置
         frame.size.height += self.bottomView.bounds.size.height;
         CGRect frameBottom = self.bottomView.frame;
         frameBottom.origin.y = self.frame.size.height - frameBottom.size.height;
