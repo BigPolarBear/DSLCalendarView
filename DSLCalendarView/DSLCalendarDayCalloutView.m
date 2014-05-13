@@ -73,7 +73,9 @@
     if (self.imageView == nil) {
         UIImage *calloutImage = [UIImage imageNamed:@"DSLCalendarDayCallout"];
 
-        self.imageView = [[UIImageView alloc] initWithImage:[calloutImage resizableImageWithCapInsets:UIEdgeInsetsMake(14.0, 36.0, 60.0, 36.0)]];
+//        self.imageView = [[UIImageView alloc] initWithImage:[calloutImage resizableImageWithCapInsets:UIEdgeInsetsMake(14.0, 36.0, 60.0, 36.0)]];
+        self.imageView = [[UIImageView alloc] initWithImage:[calloutImage resizableImageWithCapInsets:UIEdgeInsetsMake(14.0, 30.0, 60.0, 30.0)]];
+
         self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.imageView.frame = self.bounds;
         [self insertSubview:self.imageView atIndex:0];
